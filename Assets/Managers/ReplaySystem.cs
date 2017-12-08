@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ReplaySystem : MonoBehaviour
 {
@@ -41,7 +39,7 @@ public class ReplaySystem : MonoBehaviour
         rigidbody.isKinematic = false;
         int frame = Time.frameCount % bufferFrames;
         float time = Time.time;
-        print("Writing frame: " + frame);
+        //print("Writing frame: " + frame);
         keyFrames[frame] = new MyKeyFrame(time, transform.position, transform.rotation);
     }
 }
