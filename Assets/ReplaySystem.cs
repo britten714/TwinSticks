@@ -2,23 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Replay : MonoBehaviour
+public class ReplaySystem : MonoBehaviour
 {
     private const int bufferFrames = 100;
     private MyKeyFrame[] keyFrames = new MyKeyFrame[bufferFrames];  //bufferFrames가 value 였으면 이렇게 못한다. 컴파일 할 때 bufferFrames가 무슨 값을 갖는지 모르니까. 근데 const니까 가능하다. 
     private Rigidbody rigidbody;
-    
+    private GameManager manager;
+
 	void Start ()
 	{
 	    rigidbody = GetComponent<Rigidbody>();
+	    manager = GameObject.FindObjectOfType<GameManager>();
 	}
 		
 	void Update ()
 	{
-	    Record();
+	    if (manager.recording)
+	    {
+	        Record();
+	    }
+	    else
+	    {
+	        PlayBack();
+	    }
 	}
 
-    void PlayBack()
+    public void PlayBack()
     {
         rigidbody.isKinematic = true;
         int frame = Time.frameCount % bufferFrames;
